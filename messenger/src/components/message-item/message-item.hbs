@@ -1,0 +1,11 @@
+<li class="message {{#if (isOwnUser userId)}} message-own{{/if}} message-{{message.type}}">
+    {{#if (isTextMessage message.type)}}
+        <p class="message__text">{{message.content}}</p>
+    {{/if}}
+    {{#if (isImageMessage message.type)}}
+
+        <img src="{{message.content}}" alt="загруженное изображение" class="message__img">
+    {{/if}}
+
+        <div class="message__time">{{message.time}}</div>
+</li>

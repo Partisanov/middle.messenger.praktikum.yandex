@@ -1,0 +1,16 @@
+.message-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  &__text {
+    color: var(--secondary-color);
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+  }
+}

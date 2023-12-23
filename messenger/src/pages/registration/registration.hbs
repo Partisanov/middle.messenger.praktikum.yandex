@@ -1,0 +1,16 @@
+<div class="container">
+    {{#> Form type="auth"}}
+        {{> Title text="Регистрация"}}
+        {{> Input label="Почта" name="email" type="email" mode="float" value=login}}
+        {{> Input label="Логин" name="login" type="text" mode="float" value=login}}
+        {{> Input label="Имя" name="first_name" type="text" mode="float" value=first_name}}
+        {{> Input label="Фамилия" name="second_name" type="text" mode="float" value=second_name}}
+        {{> Input label="Телефон" name="phone" type="text" mode="float" value=phone}}
+        {{> Input label="Пароль" name="password" type="password" mode="float" value=password invalid=true }}
+        {{> Input label="Пароль (ещё раз)" name="password2" type="password" mode="float" value=password  invalid=true validateMessage="Пароли не совпадают" }}
+        <div style="margin-top: 47px">
+            {{> Button label="Зарегистрироваться" type="primary" page="list"}}
+            {{> Button label="Войти" type="link" page="login"}}
+        </div>
+    {{/Form}}
+</div>

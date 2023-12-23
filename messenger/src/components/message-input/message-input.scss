@@ -1,0 +1,21 @@
+.message-input {
+  margin: 0 10px;
+  width: 100%;
+  flex-grow: 1;
+  &__field {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    background-color: #efefef;
+    &::placeholder {
+      color: var(--secondary-color);
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 12px;
+    }
+  }
+}
