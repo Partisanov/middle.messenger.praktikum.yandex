@@ -6,12 +6,12 @@
             {{> Avatar img="https://aabookshop.net/wp-content/plugins/wp-e-commerce/wpsc-components/theme-engine-v1/templates/wpsc-images/noimage.png" size=130 style="backgroundColor:'red'"}}
         </div>
         <ul class="profile__list">
-            <li class="profile__item">{{>Input mode="fix" label="Почта" name="email" type="text"  value=email }}</li>
-            <li class="profile__item">{{>Input mode="fix" label="Логин" name="login" type="text"  value=login}}</li>
-            <li class="profile__item">{{>Input mode="fix" label="Имя" name="first_name" type="text"  value=first_name}}</li>
-            <li class="profile__item">{{>Input mode="fix" label="Фамилия" name="second_name" type="text"  value=second_name}}</li>
-            <li class="profile__item">{{>Input mode="fix" label="Имя в чате" name="nick_name" type="text"  value=nick_name}}</li>
-            <li class="profile__item">{{>Input mode="fix" label="Телефон" name="phone" type="text"  value=phone}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="email" label="Почта" name="email" type="text"  value=email }}</li>
+            <li class="profile__item">{{>Input mode="fix" id="login" label="Логин" name="login" type="text"  value=login}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="first_name" label="Имя" name="first_name" type="text"  value=first_name}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="second_name" label="Фамилия" name="second_name" type="text"  value=second_name}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="display_name" label="Имя в чате" name="display_name" type="text"  value=display_name}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="phone" label="Телефон" name="phone" type="text"  value=phone}}</li>
         </ul>
         <ul class="profile__list">
             <li class="profile__item_btn" style="display: flex; justify-content: center">{{>Button type="primary" label="Сохранить"}}</li>
