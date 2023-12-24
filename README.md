@@ -14,8 +14,8 @@ HTML5, CSS, SCSS,
 Для запуска проекта необходимо выполнить следующие команды:
 
 - `git clone https://github.com/Partisanov/middle.messenger.praktikum.yandex.git` — клонировать репозиторий
-- `cd messenger` — перейти в директорию проекта
 - `git checkout sprint_1` — переключить репозиторий на ветку разработки,
+- `cd messenger` — перейти в директорию проекта
 - `npm install` — установить зависимости
 - `npm run dev` — запустить сборку в режиме разработки
 
