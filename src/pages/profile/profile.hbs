@@ -1,0 +1,26 @@
+<div class="container">
+    {{#>ProfileLayout}}
+
+        <div class="profile__avatar-wrap">
+            <button class="profile__change-avatar-btn">Поменять
+                аватар</button>
+        {{> Avatar img="https://aabookshop.net/wp-content/plugins/wp-e-commerce/wpsc-components/theme-engine-v1/templates/wpsc-images/noimage.png" size=130 style="backgroundColor:'red'"}}
+        </div>
+        <div class="profile__title-wrap">
+            <h3 class="profile__title">{{display_name}}</h3>
+        </div>
+        <ul class="profile__list">
+            <li class="profile__item">{{>Input mode="fix" id="email"  label="Почта" name="email" type="text"  value=email disabled=true}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="login" label="Логин" name="login" type="text"  value=login disabled=true}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="first_name" label="Имя" name="first_name" type="text"  value=first_name disabled=true}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="second_name" label="Фамилия" name="second_name" type="text"  value=second_name disabled=true}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="display_name" label="Имя в чате" name="display_name" type="text"  value=display_name disabled=true}}</li>
+            <li class="profile__item">{{>Input mode="fix" id="phone" label="Телефон" name="phone" type="text"  value=phone disabled=true}}</li>
+        </ul>
+        <ul class="profile__list">
+            <li class="profile__item_btn">{{>Button type="link" label="Изменить данные" page="editProfile"}}</li>
+            <li class="profile__item_btn">{{>Button type="link" label="Изменить пароль" page="changePassword"}}</li>
+            <li class="profile__item_btn">{{>Button type="link-danger" label="Выйти" page="login"}}</li>
+        </ul>
+    {{/ProfileLayout}}
+</div>

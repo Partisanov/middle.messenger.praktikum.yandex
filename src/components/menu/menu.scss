@@ -1,0 +1,8 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  min-width: 310px;
+  height: 100vh;
+  border-right: 1px solid #eaeaea;
+}

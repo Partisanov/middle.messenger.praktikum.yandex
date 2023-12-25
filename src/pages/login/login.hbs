@@ -1,0 +1,12 @@
+<div class="container">
+
+    {{#> Form type="auth"}}
+        {{> Title text="Вход"}}
+        {{> Input label="Логин" id="login" name="login" type="text" mode="float" value=login }}
+        {{> Input label="Пароль" id="password" name="password" type="password" mode="float" invalid=true validateMessage="Неверный пароль" value=password }}
+        <div style="margin-top: auto">
+            {{> Button label="Авторизоваться" type="primary" page="messenger"}}
+            {{> Button label="Нет аккаунта?" type="link" page="registration"}}
+        </div>
+    {{/Form}}
+</div>

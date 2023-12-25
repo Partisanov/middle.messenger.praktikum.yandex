@@ -1,0 +1,9 @@
+.messages {
+  overflow-y: auto;
+  width: 100%;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}

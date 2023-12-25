@@ -1,0 +1,36 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+
+  &__header,
+  &__footer {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__header {
+    border-bottom: 1px solid var(--bg-color);
+  }
+  &__user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  &__footer {
+    border-top: 1px solid var(--bg-color);
+  }
+}
