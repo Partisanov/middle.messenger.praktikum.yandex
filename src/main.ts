@@ -1,8 +1,8 @@
-import Handlebars from 'handlebars';
-import * as Layouts from './layouts';
-import * as Components from './components';
-import { navigate } from './utils/navigate.ts';
-import { registerComponent } from './utils/registerComponents.ts';
+import Handlebars from "handlebars";
+import * as Layouts from "./layouts";
+import * as Components from "./components";
+import { navigate } from "./utils/navigate.ts";
+import { registerComponent } from "./utils/registerComponents.ts";
 
 // Object.entries(Components).forEach(([name, component]) => {
 //   if (['Input', 'Button'].includes(name)) {
@@ -33,4 +33,4 @@ registerComponent('MessagesList', Components.MessagesList);
 registerComponent('Chat', Components.Chat);
 registerComponent('SearchField', Components.SearchField);
 
-document.addEventListener('DOMContentLoaded', () => navigate('profile'));
+document.addEventListener('DOMContentLoaded', () => navigate('login'));
