@@ -31,7 +31,7 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
         if (newPassword !== newPassword2) {
           this.refs.newPassword.setProps({ value: newPassword, invalid: true });
           this.refs.newPassword2.setProps({ value: newPassword2, invalid: true });
-          // @ts-expect-error
+          // @ts-expect-error: set error manually
           this.refs.newPassword2.refs.errorLine.setProps({ error: 'Пароли не совпадают' });
           return;
         } else {
@@ -69,9 +69,9 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
                 id="oldPassword"
                 name="oldPassword"
                 type="password"
-                mode="fix" 
+                mode="fix"
                 ref="oldPassword"
-                validate=validate.password 
+                validate=validate.password
               }}}
             </li>
             <li class="profile__item">
@@ -80,7 +80,7 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
                 id="newPassword"
                 name="newPassword"
                 type="password"
-                mode="fix" 
+                mode="fix"
                 ref="newPassword"
                 validate=validate.password
               }}}
@@ -91,7 +91,7 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
                 id="newPassword2"
                 name="newPassword"
                 type="password"
-                mode="fix" 
+                mode="fix"
                 ref="newPassword2"
                 validate=validate.password
               }}}

@@ -51,7 +51,7 @@ export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
         if (password !== password2) {
           this.refs.password.setProps({ value: password, invalid: true });
           this.refs.password2.setProps({ value: password2, invalid: true });
-          // @ts-expect-error
+          // @ts-expect-error: set error manually
           this.refs.password2.refs.errorLine.setProps({ error: 'Пароли не совпадают' });
           return;
         } else {
@@ -79,70 +79,70 @@ export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
             <div class="container">
                 {{#> Form type="auth"}}
                   {{{ Title text="Регистрация"}}}
-                  {{{ InputField 
+                  {{{ InputField
                     label="Почта"
-                    id="email"  
-                    name="email" 
-                    type="email" 
-                    mode="float" 
+                    id="email"
+                    name="email"
+                    type="email"
+                    mode="float"
                     ref="email"
-                    validate=validate.email 
+                    validate=validate.email
                    }}}
-                  {{{ InputField 
-                    label="Логин" 
-                    id="login" 
-                    name="login" 
-                    type="text" 
-                    mode="float" 
-                    ref="login" 
-                    validate=validate.login 
+                  {{{ InputField
+                    label="Логин"
+                    id="login"
+                    name="login"
+                    type="text"
+                    mode="float"
+                    ref="login"
+                    validate=validate.login
                   }}}
                   {{{ InputField
                     label="Имя"
-                    id="first_name"  
-                    name="first_name" 
-                    type="text" 
+                    id="first_name"
+                    name="first_name"
+                    type="text"
                     mode="float"
                     ref="first_name"
                     validate=validate.name
                   }}}
                   {{{ InputField
                     label="Фамилия"
-                    id="second_name"  
+                    id="second_name"
                     name="second_name"
-                    type="text" 
-                    mode="float" 
+                    type="text"
+                    mode="float"
                     ref="second_name"
                     validate=validate.name
                   }}}
                   {{{ InputField
                     label="Телефон"
                     id="phone"
-                    name="phone" 
-                    type="text" 
-                    mode="float" 
+                    name="phone"
+                    type="text"
+                    mode="float"
                     ref="phone"
                     validate=validate.phone
                   }}}
-                  {{{ InputField 
-                    label="Пароль" 
-                    id="password" 
-                    name="password" 
-                    type="password" 
-                    mode="float" 
-                    ref="password" 
+                  {{{ InputField
+                    label="Пароль"
+                    id="password"
+                    name="password"
+                    type="password"
+                    mode="float"
+                    ref="password"
                     validate=validate.password
                   }}}
-                  {{{ InputField 
-                    label="Пароль (ещё раз)" 
-                    id="password2" 
-                    name="password" 
-                    type="password" 
-                    mode="float" 
+                  {{{ InputField
+                    label="Пароль (ещё раз)"
+                    id="password2"
+                    name="password"
+                    type="password"
+                    mode="float"
                     ref="password2"
-                    validate=validate.password 
+                    validate=validate.password
                   }}}
-                                               
+
                   <div style="margin-top: 47px">
                     {{{ Button label="Зарегистрироваться" type="primary" page="list" onClick=onRegistration }}}
                     {{{ Button label="Войти" type="link" page="login" onClick=onLogin }}}
