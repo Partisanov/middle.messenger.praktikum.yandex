@@ -35,7 +35,7 @@
     "vite-plugin-handlebars": "^1.6.0"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.12.0"
   },
   "lint-staged": {
     "*.{js,ts,hbs}": [
