@@ -1,45 +1,30 @@
-@import "components/input/input.scss";
-@import "components/button/button.scss";
-@import "components/title/title.scss";
-@import "components/form/form.scss";
-@import "components/error/error.scss";
-@import "components/menu/menu.scss";
-@import "components/avatar/avatar.scss";
-@import "components/message-input/message-input.scss";
-@import "components/user-name/user-name.scss";
-@import "components/list-users/list-users.scss";
-@import "components/item-user/item-user.scss";
-@import "components/search/search.scss";
-@import "components/chat/chat.scss";
-@import "components/messages-list/messages-list.scss";
-@import "components/message-date/message-date.scss";
-@import "components/message-item/message-item.scss";
-@import "layouts/popup/popup.scss";
-@import "layouts/profile/profile.scss";
 @font-face {
-  font-family: "Inter";
-  src: url("../static/fonts/Inter-Regular.woff2") format("woff2");
+  font-family: Inter;
+  src: url('../static/fonts/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Inter";
-  src: url("../static/fonts/Inter-Medium.woff2") format("woff2");
+  font-family: Inter;
+  src: url('../static/fonts/Inter-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Inter";
-  src: url("../static/fonts/Inter-SemiBold.woff2") format("woff2");
+  font-family: Inter;
+  src: url('../static/fonts/Inter-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
 }
+
 :root {
   --primary-color: #3369f3;
   --secondary-color: #999;
   --text-color: #1e1e1e;
   --error-color: #ff2f2f;
-  --white-color: #ffffff;
+  --white-color: #fff;
   --bg-color: #eaeaea;
   --hover-color: #0b5ed7;
   --active-color: #0a58ca;
@@ -59,7 +44,7 @@ html {
 body {
   overflow-anchor: none;
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
@@ -91,17 +76,6 @@ button {
   padding: 0;
   background: transparent;
   cursor: pointer;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  clip: rect(1px 1px 1px 1px);
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
 }
 
 .container {

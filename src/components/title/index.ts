@@ -1,1 +1,3 @@
-export { default as Title } from "./title.hbs?raw";
+import './title.scss';
+
+export { Title } from './title.ts';

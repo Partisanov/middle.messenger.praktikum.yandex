@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 30px;
+
   &__title {
     margin-bottom: 20px;
     color: var(--text-color);
@@ -15,6 +16,7 @@
     font-weight: 500;
     line-height: 40px; /* 100% */
   }
+
   &__message {
     color: var(--text-color);
     margin-bottom: 69px;

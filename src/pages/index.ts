@@ -1,7 +1,9 @@
-export { LoginPage } from "./login";
-export { RegistrationPage } from "./registration";
-export { ErrorPage } from "./error";
-export { MessengerPage } from "./messenger";
-export { ProfilePage } from "./profile";
-export { EditProfilePage } from "./edit-profile";
-export { ChangePasswordPage } from "./change-password";
+export { LoginPage } from './login';
+export { RegistrationPage } from './registration';
+export { ErrorPage } from './error';
+export { NotFoundPage } from './404';
+export { InternalErrorPage } from './500';
+export { MessengerPage } from './messenger';
+export { ProfilePage } from './profile';
+export { EditProfilePage } from './edit-profile';
+export { ChangePasswordPage } from './change-password';

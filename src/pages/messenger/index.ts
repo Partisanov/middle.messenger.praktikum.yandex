@@ -1,1 +1,1 @@
-export { default as MessengerPage } from "./messenger.hbs?raw";
+export { MessengerPage } from './messenger.ts';
