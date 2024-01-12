@@ -158,6 +158,9 @@ class Block<Props extends object, Refs extends RefType = RefType> {
   protected init() {}
 
   protected componentDidUpdate(oldProps: any, newProps: any) {
+    if (oldProps || newProps) {
+      return true;
+    }
     return true;
   }
 
