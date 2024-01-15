@@ -12,6 +12,28 @@ export interface BlockClass<P extends object, R extends RefType> {
   new (props: P): Block<P, R>;
 }
 
+interface BlockConstructable<Props extends object, R extends RefType> {
+  new (props: Props): Block<Props, R>;
+}
+
+type CompileChildren<P extends object, R extends RefType> = {
+  component: BlockConstructable<P, R>;
+  embed: (fragment: DocumentFragment) => void;
+};
+
+type IContextExtra<P extends object, R extends RefType> = {
+  __refs: RefType;
+  __children?: CompileChildren<P, R>[];
+};
+
+type EventTypes<P> = {
+  [Block.EVENTS.INIT]: [void];
+  [Block.EVENTS.FLOW_CDM]: [void];
+  [Block.EVENTS.FLOW_CDU]: [P, P];
+  [Block.EVENTS.FLOW_CWU]: [void];
+  [Block.EVENTS.FLOW_RENDER]: [void];
+};
+
 class Block<Props extends object, Refs extends RefType = RefType> {
   static EVENTS = {
     INIT: 'init',
@@ -19,7 +41,7 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     FLOW_CDU: 'flow:component-did-update',
     FLOW_CWU: 'flow:component-will-unmount',
     FLOW_RENDER: 'flow:render',
-  };
+  } as const;
 
   public id = nanoid(6);
   protected props: Props;
@@ -61,7 +83,7 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     });
   }
 
-  _registerEvents(eventBus: EventBus) {
+  _registerEvents(eventBus: EventBus<EventTypes<Props>>) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -125,16 +147,16 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     return this._element;
   }
 
-  _makePropsProxy(props: any) {
+  _makePropsProxy(props: Props) {
     return new Proxy(props, {
       get: (target, prop) => {
-        const value = target[prop];
+        const value = target[prop as keyof Props];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set: (target, prop, value) => {
         const oldTarget = { ...target };
 
-        target[prop] = value;
+        target[prop as keyof Props] = value;
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
@@ -157,7 +179,7 @@ class Block<Props extends object, Refs extends RefType = RefType> {
 
   protected init() {}
 
-  protected componentDidUpdate(oldProps: any, newProps: any) {
+  protected componentDidUpdate(oldProps: Props, newProps: Props) {
     if (oldProps || newProps) {
       return true;
     }
@@ -174,7 +196,7 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  private _componentDidUpdate(oldProps: any, newProps: any) {
+  private _componentDidUpdate(oldProps: Props, newProps: Props) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -194,26 +216,27 @@ class Block<Props extends object, Refs extends RefType = RefType> {
     this._addEvents();
   }
 
-  private compile(template: string, context: any) {
-    const contextAndStubs = { ...context, __refs: this.refs };
+  private compile(template: string, context: Props) {
+    const contextAndStubs: IContextExtra<Props, RefType> = { ...context, __refs: this.refs };
 
+    /* код не нужен так как используется функция registr component
     Object.entries(this.children).forEach(([key, child]) => {
       contextAndStubs[key] = `<div data-id="${child.id}"></div>`;
     });
-
+*/
     const html = Handlebars.compile(template)(contextAndStubs);
 
     const temp = document.createElement('template');
 
     temp.innerHTML = html;
-    contextAndStubs.__children?.forEach(({ embed }: any) => {
+    contextAndStubs.__children?.forEach(({ embed }) => {
       embed(temp.content);
     });
 
-    Object.values(this.children).forEach((child) => {
-      const stub = temp.content.querySelector(`[data-id="${child.id}"]`);
-      stub?.replaceWith(child.getContent()!);
-    });
+    // Object.values(this.children).forEach((child) => {
+    //   const stub = temp.content.querySelector(`[data-id="${child.id}"]`);
+    //   stub?.replaceWith(child.getContent()!);
+    // });
 
     return temp.content;
   }

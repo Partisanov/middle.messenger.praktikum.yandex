@@ -1,8 +1,8 @@
-import Block from '../../utils/Block.ts';
 import { IProfilePageProps } from '../profile/profile.ts';
 import * as validators from '../../utils/validators.ts';
 import { Avatar, InputField } from '../../components';
 import { navigate } from '../../utils/navigate.ts';
+import Block from '../../utils/Block.ts';
 
 interface IEditProfilePageProps extends IProfilePageProps {
   validate: {
@@ -70,7 +70,7 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
     const { img, display_name, email, login, first_name, second_name, phone } = this.props;
     return `
         <div class="container">
-        {{#> ProfileLayout}} 
+        {{#> ProfileLayout}}
           <div class="profile__avatar-wrap" style="margin-bottom: 97px">
             <button class="profile__change-avatar-btn">Поменять аватар</button>
             {{{Avatar img="${img}" size=130 }}}
@@ -82,10 +82,10 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
                   id="email"
                   name="email"
                   type="text"
-                  mode="fix" 
+                  mode="fix"
                   value='${email}'
                   ref="email"
-                  validate=validate.email 
+                  validate=validate.email
                 }}}
               </li>
               <li class="profile__item">
@@ -94,10 +94,10 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
                   id="login"
                   name="login"
                   type="text"
-                  mode="fix" 
+                  mode="fix"
                   value='${login}'
                   ref="login"
-                  validate=validate.login 
+                  validate=validate.login
                 }}}
               </li>
               <li class="profile__item">
@@ -106,7 +106,7 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
                   id="first_name"
                   name="first_name"
                   type="text"
-                  mode="fix" 
+                  mode="fix"
                   value='${first_name}'
                   ref="first_name"
                   validate=validate.name
@@ -118,7 +118,7 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
                   id="second_name"
                   name="second_name"
                   type="text"
-                  mode="fix" 
+                  mode="fix"
                   value='${second_name}'
                   ref="second_name"
                   validate=validate.name
@@ -130,7 +130,7 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
                   id="display_name"
                   name="display_name"
                   type="text"
-                  mode="fix" 
+                  mode="fix"
                   value='${display_name}'
                   ref="display_name"
                   validate=validate.name
@@ -142,7 +142,7 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
                   id="phone"
                   name="phone"
                   type="text"
-                  mode="fix" 
+                  mode="fix"
                   value='${phone}'
                   ref="phone"
                   validate=validate.phone
