@@ -1,1 +1,3 @@
-export { default as Menu } from "./menu.hbs?raw";
+import './menu.scss';
+
+export { Menu } from './menu.ts';

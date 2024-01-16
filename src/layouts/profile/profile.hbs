@@ -1,10 +1,19 @@
 <section class="profile">
-    <div class="profile__btn-back">
-        {{>Button type="arrow-left" page="messenger"}}
-    </div>
-    <div class="profile__content">
-        <form class="profile__form">
-            {{> @partial-block }}
-        </form>
-    </div>
+  <div class="profile__btn-back">
+    {{{Button type="arrow-left" page="messenger" }}}
+  </div>
+  <div class="profile__content">
+    <form class="profile__form">
+      {{> @partial-block }}
+    </form>
+  </div>
 </section>
+
+<script>
+  import { navigate } from "../../utils/navigate.js";
+
+  export const goBack = (e) => {
+    e.preventDefault();
+    navigate("messenger");
+  };
+</script>

@@ -1,1 +1,3 @@
-export { default as MessageDate } from "./message-date.hbs?raw";
+import './message-date.scss';
+
+export { MessageDate } from './message-date.ts';

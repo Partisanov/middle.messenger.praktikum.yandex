@@ -1,1 +1,1 @@
-export { default as EditProfilePage } from "./edit-profile.hbs?raw";
+export { EditProfilePage } from './edit-profile.ts';

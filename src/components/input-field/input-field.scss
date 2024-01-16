@@ -1,0 +1,118 @@
+.input {
+  position: relative;
+  width: 100%;
+  border: none;
+  padding-bottom: 1rem;
+  margin-bottom: 10px;
+
+  &-float {
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: left;
+
+    & .input__label {
+      color: var(--secondary-color, #999);
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 13px;
+      transform: translateY(21px);
+      transform-origin: left top;
+      cursor: text;
+      transition: all 0.3s;
+    }
+
+    & .input__field {
+      padding: 7px 0;
+      color: var(--text-color, #1e1e1e);
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 13px;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid var(--primary-color, #3369f3);
+
+      &:focus + .input__label,
+      &:not(:placeholder-shown) + .input__label {
+        padding-bottom: 4px;
+        font-size: 9px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 9px;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &-fix {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 0;
+
+    & .input__field {
+      color: var(--secondary-color);
+      text-align: right;
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 13px;
+      align-self: flex-end;
+      border: none;
+      outline: none;
+      background: none;
+    }
+
+    & .input__label {
+      position: absolute;
+      left: 0;
+      color: var(--text-color);
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 13px;
+    }
+
+    & .input__validate {
+      bottom: -10px;
+    }
+  }
+
+  &-message {
+    margin: 0 10px;
+    flex-grow: 1;
+    padding: 0;
+
+    & .input__field {
+      width: 100%;
+      padding: 10px 20px;
+      border: none;
+      outline: none;
+      border-radius: 30px;
+      background-color: #efefef;
+
+      &::placeholder {
+        color: var(--secondary-color);
+        font-family: Inter, sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 12px;
+      }
+    }
+  }
+
+  &.invalid {
+    & > .input__field {
+      color: var(--error-color, #ff2f2f);
+    }
+  }
+
+}

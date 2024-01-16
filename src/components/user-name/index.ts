@@ -1,1 +1,3 @@
-export { default as UserName } from "./user-name.hbs?raw";
+import './user-name.scss';
+
+export { UserName } from './user-name.ts';

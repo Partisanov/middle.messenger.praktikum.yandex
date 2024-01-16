@@ -1,1 +1,3 @@
-export { default as SearchField } from "./search.hbs?raw";
+import './search.scss';
+
+export { SearchField } from './search.ts';

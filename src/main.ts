@@ -1,98 +1,36 @@
-import Handlebars from "handlebars";
-import * as Layouts from "./layouts";
-import * as Components from "./components";
-import * as Pages from "./pages";
+import Handlebars from 'handlebars';
+import * as Layouts from './layouts';
+import * as Components from './components';
+import { navigate } from './utils/navigate.ts';
+import { registerComponent } from './utils/registerComponents.ts';
 
-const pages = {
-  login: [Pages.LoginPage, { login: "ivanivanov", password: "test" }],
-  registration: [
-    Pages.RegistrationPage,
-    {
-      email: "pochta@yandex.ru",
-      login: "ivanivanov",
-      first_name: "Иван",
-      second_name: "Иванов",
-      phone: "+7(909)9673030",
-      password: "qwerty123",
-    },
-  ],
-  "404": [
-    Pages.ErrorPage,
-    { errorNumber: "404", errorMessage: "Не туда попали" },
-  ],
-  "500": [
-    Pages.ErrorPage,
-    { errorNumber: "500", errorMessage: "Мы уже фиксим" },
-  ],
-  messenger: [Pages.MessengerPage],
-  profile: [
-    Pages.ProfilePage,
-    {
-      email: "pochta@yandex.ru",
-      login: "ivanivanov",
-      first_name: "Иван",
-      second_name: "Иванов",
-      display_name: "Иван",
-      phone: "+7(909)9673030",
-    },
-  ],
-  editProfile: [
-    Pages.EditProfilePage,
-    {
-      email: "pochta@yandex.ru",
-      login: "ivanivanov",
-      first_name: "Иван",
-      second_name: "Иванов",
-      display_name: "Иван",
-      phone: "+7(909)9673030",
-    },
-  ],
-  changePassword: [
-    Pages.ChangePasswordPage,
-    {
-      oldPassword: "qwerty123",
-      newPassword: "qwerty12",
-      newPassword2: "qwerty1234",
-    },
-  ],
-};
+// Object.entries(Components).forEach(([name, component]) => {
+//   if (['Input', 'Button'].includes(name)) {
+//     registerComponent(name, component);
+//     return;
+//   }
+//   Handlebars.registerPartial(name, component);
+// });
 
-Object.entries(Layouts).forEach(([name, component]) => {
-  Handlebars.registerPartial(name, component);
-});
-Object.entries(Components).forEach(([name, component]) => {
-  Handlebars.registerPartial(name, component);
-});
+Handlebars.registerPartial('Form', Layouts.Form);
+Handlebars.registerPartial('PopupLayout', Layouts.PopupLayout);
+Handlebars.registerPartial('ProfileLayout', Layouts.ProfileLayout);
 
-function navigate(page: string) {
-  //@ts-ignore
-  const [source, context] = pages[page];
-  const container = document.getElementById("app")!;
-  container.innerHTML = Handlebars.compile(source)(context);
-}
+registerComponent('Title', Components.Title);
+registerComponent('InputField', Components.InputField);
+registerComponent('Input', Components.Input);
+registerComponent('ErrorLine', Components.ErrorLine);
+registerComponent('Button', Components.Button);
+registerComponent('Avatar', Components.Avatar);
+registerComponent('UserName', Components.UserName);
+registerComponent('Error', Components.Error);
+registerComponent('ItemUser', Components.ItemUser);
+registerComponent('ListUsers', Components.ListUsers);
+registerComponent('Menu', Components.Menu);
+registerComponent('MessageDate', Components.MessageDate);
+registerComponent('Message', Components.Message);
+registerComponent('MessagesList', Components.MessagesList);
+registerComponent('Chat', Components.Chat);
+registerComponent('SearchField', Components.SearchField);
 
-document.addEventListener("DOMContentLoaded", () => navigate("login"));
-
-document.addEventListener("DOMContentLoaded", () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const pageParam = urlParams.get("page") || "login";
-
-  // Если страница существует, переходим на нее, в противном случае - на страницу ошибки 404
-  // @ts-ignore
-  if (pages[pageParam]) {
-    navigate(pageParam);
-  } else {
-    navigate("404");
-  }
-});
-
-document.addEventListener("click", (e) => {
-  //@ts-ignore
-  const page = e.target.getAttribute("page");
-  if (page) {
-    navigate(page);
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
-});
+document.addEventListener('DOMContentLoaded', () => navigate('login'));

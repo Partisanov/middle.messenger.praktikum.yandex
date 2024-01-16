@@ -1,1 +1,3 @@
-export { default as ItemUser } from "./item-user.hbs?raw";
+import './item-user.scss';
+
+export { ItemUser } from './item-user.ts';
