@@ -1,8 +1,8 @@
-import { IProfilePageProps } from '../profile/profile.ts';
 import * as validators from '../../utils/validators.ts';
 import { Avatar, InputField } from '../../components';
-import { navigate } from '../../utils/navigate.ts';
 import Block from '../../utils/Block.ts';
+import router from '../../Router/Router.ts';
+import { IProfilePageProps } from '../profile/profile.ts';
 
 interface IEditProfilePageProps extends IProfilePageProps {
   validate: {
@@ -25,17 +25,9 @@ type Ref = {
 };
 
 export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
-  constructor() {
+  constructor(props: IEditProfilePageProps) {
     super({
-      img:
-        'https://aabookshop.net/wp-content/plugins/' +
-        'wp-e-commerce/wpsc-components/theme-engine-v1/templates/wpsc-images/noimage.png',
-      display_name: 'Иван',
-      email: 'pochta@yandex.ru',
-      login: 'ivanivanov',
-      first_name: 'Иван',
-      second_name: 'Иванов',
-      phone: '+7(909)9673030',
+      ...props,
       validate: {
         login: validators.login,
         email: validators.email,
@@ -61,19 +53,19 @@ export class EditProfilePage extends Block<IEditProfilePageProps, Ref> {
           second_name,
           phone,
         });
-        navigate('profile');
+        router.go('/profile');
       },
     });
   }
 
   protected render(): string {
-    const { img, display_name, email, login, first_name, second_name, phone } = this.props;
+    const { avatar, display_name, email, login, first_name, second_name, phone } = this.props.user;
     return `
         <div class="container">
         {{#> ProfileLayout}}
           <div class="profile__avatar-wrap" style="margin-bottom: 97px">
             <button class="profile__change-avatar-btn">Поменять аватар</button>
-            {{{Avatar img="${img}" size=130 }}}
+            {{{Avatar img="${avatar}" size=130 }}}
           </div>
           <ul class="profile__list">
               <li class="profile__item">

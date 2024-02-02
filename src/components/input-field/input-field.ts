@@ -40,7 +40,7 @@ export class InputField extends Block<IInputFieldProps, Ref> {
     const { label, placeholder, id, name, type, mode, invalid, value, disabled } = this.props;
     return `
             <div class="input ${mode ? `input-${mode}` : ''} ${invalid ? 'invalid' : ''}">
-              {{{Input 
+              {{{Input
                   ref="input"
                   onBlur=onBlur
                   type="${type}"

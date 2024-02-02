@@ -1,19 +1,12 @@
 import Handlebars from 'handlebars';
 import * as Layouts from './layouts';
 import * as Components from './components';
-import { navigate } from './utils/navigate.ts';
 import { registerComponent } from './utils/registerComponents.ts';
-
-// Object.entries(Components).forEach(([name, component]) => {
-//   if (['Input', 'Button'].includes(name)) {
-//     registerComponent(name, component);
-//     return;
-//   }
-//   Handlebars.registerPartial(name, component);
-// });
+import { Store } from './Store/Store.ts';
+import { initApp } from './services/initApp.ts';
+import { TAppState } from './type.ts';
 
 Handlebars.registerPartial('Form', Layouts.Form);
-Handlebars.registerPartial('PopupLayout', Layouts.PopupLayout);
 Handlebars.registerPartial('ProfileLayout', Layouts.ProfileLayout);
 
 registerComponent('Title', Components.Title);
@@ -32,5 +25,21 @@ registerComponent('Message', Components.Message);
 registerComponent('MessagesList', Components.MessagesList);
 registerComponent('Chat', Components.Chat);
 registerComponent('SearchField', Components.SearchField);
+registerComponent('Dialog', Components.Dialog);
+registerComponent('DialogCreateChat', Components.DialogCreateChat);
 
-document.addEventListener('DOMContentLoaded', () => navigate('login'));
+declare global {
+  interface Window {
+    store: Store<TAppState>;
+  }
+}
+
+const initState: TAppState = {
+  error: null,
+  user: null,
+  isOpenDialogCreateChat: false,
+  chats: [],
+};
+window.store = new Store<TAppState>(initState);
+
+document.addEventListener('DOMContentLoaded', () => initApp());

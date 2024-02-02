@@ -1,1 +1,3 @@
-export { MessengerPage } from './messenger.ts';
+import MessengerPage from './messenger.ts';
+
+export default MessengerPage;

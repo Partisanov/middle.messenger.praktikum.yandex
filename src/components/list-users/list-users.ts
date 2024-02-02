@@ -1,8 +1,8 @@
 import Block from '../../utils/Block.ts';
-import { IItemUserProps } from '../item-user/item-user.ts';
+import { TChat } from '../../type.ts';
 
 export interface IListUsersProps {
-  users: IItemUserProps[];
+  chats: TChat[];
 }
 
 export class ListUsers extends Block<IListUsersProps> {
@@ -12,14 +12,14 @@ export class ListUsers extends Block<IListUsersProps> {
     return `
       <div>
         <ul>
-          {{#each users}}
-            {{{ ItemUser 
-              name=this.name
-              avatar=this.avatar 
+          {{#each chats}}
+            {{{ ItemUser
+              title=this.title
+              avatar=this.avatar
               active=this.active
-              message=this.message
+              last_message=this.last_message
               date=this.date
-              newMessage=this.newMessage
+              unread_count=this.unread_count
              }}}
           {{/each}}
         </ul>

@@ -1,6 +1,10 @@
 import Block from '../../utils/Block.ts';
 import { Avatar, InputField } from '../../components';
-import { navigate } from '../../utils/navigate.ts';
+import router from '../../Router/Router.ts';
+import { connect } from '../../utils/connect.ts';
+import { logout } from '../../services/auth.ts';
+import { TUser } from '../../type.ts';
+import { initProfilePage } from '../../services/initApp.ts';
 
 export interface IProfilePageProps {
   img?: string;
@@ -10,6 +14,7 @@ export interface IProfilePageProps {
   first_name: string;
   second_name: string;
   phone: string;
+  user: TUser;
   onEditProfile?: (event: KeyboardEvent | MouseEvent) => void;
   onChangePassword?: (event: KeyboardEvent | MouseEvent) => void;
   onLogOut?: (event: KeyboardEvent | MouseEvent) => void;
@@ -25,45 +30,40 @@ type Ref = {
   phone: InputField;
 };
 
-export class ProfilePage extends Block<IProfilePageProps, Ref> {
-  constructor() {
+class ProfilePage extends Block<IProfilePageProps, Ref> {
+  constructor(props: IProfilePageProps) {
     super({
-      img:
-        'https://aabookshop.net/wp-content/plugins/' +
-        'wp-e-commerce/wpsc-components/theme-engine-v1/templates/wpsc-images/noimage.png',
-      display_name: 'Иван',
-      email: 'pochta@yandex.ru',
-      login: 'ivanivanov',
-      first_name: 'Иван',
-      second_name: 'Иванов',
-      phone: '+7(909)9673030',
-
+      ...props,
       onEditProfile: (e) => {
         e.preventDefault();
-        navigate('editProfile');
+        router.go('/editProfile');
       },
       onChangePassword: (e) => {
         e.preventDefault();
-        navigate('changePassword');
+        router.go('/changePassword');
       },
       onLogOut: (e) => {
         e.preventDefault();
-        navigate('login');
+        logout();
+        router.go('/sign-in');
       },
     });
+    initProfilePage();
   }
 
   protected render(): string {
-    const { img, display_name, email, login, first_name, second_name, phone } = this.props;
+    const user = this.props.user;
+    console.log(this.props.user);
+
     return `
       <div class="container">
         {{#> ProfileLayout}}
           <div class="profile__avatar-wrap">
             <button class="profile__change-avatar-btn">Поменять аватар</button>
-            {{{Avatar img="${img}" size=130 }}}
+            {{{Avatar img="${user.avatar ? user.avatar : ''}" size=130 }}}
           </div>
             <div class="profile__title-wrap">
-              <h3 class="profile__title">${display_name}</h3>
+              <h3 class="profile__title">${user.display_name ? user.display_name : ''}</h3>
             </div>
             <ul class="profile__list">
               <li class="profile__item">
@@ -72,8 +72,8 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
                   id="email"
                   name="email"
                   type="text"
-                  mode="fix" 
-                  value='${email}'
+                  mode="fix"
+                  value='${user.email}'
                   disabled="true"
                   ref="email"
                 }}}
@@ -84,8 +84,8 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
                   id="login"
                   name="login"
                   type="text"
-                  mode="fix" 
-                  value='${login}'
+                  mode="fix"
+                  value='${user.login}'
                   disabled="true"
                   ref="login"
                 }}}
@@ -96,8 +96,8 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
                   id="first_name"
                   name="first_name"
                   type="text"
-                  mode="fix" 
-                  value='${first_name}'
+                  mode="fix"
+                  value='${user.first_name}'
                   disabled="true"
                   ref="first_name"
                 }}}
@@ -108,8 +108,8 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
                   id="second_name"
                   name="second_name"
                   type="text"
-                  mode="fix" 
-                  value='${second_name}'
+                  mode="fix"
+                  value='${user.second_name}'
                   disabled="true"
                   ref="second_name"
                 }}}
@@ -120,8 +120,8 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
                   id="display_name"
                   name="display_name"
                   type="text"
-                  mode="fix" 
-                  value='${display_name}'
+                  mode="fix"
+                  value='${user.display_name}'
                   disabled="true"
                   ref="display_name"
                 }}}
@@ -132,8 +132,8 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
                   id="phone"
                   name="phone"
                   type="text"
-                  mode="fix" 
-                  value='${phone}'
+                  mode="fix"
+                  value='${user.phone}'
                   disabled="true"
                   ref="phone"
                 }}}
@@ -153,3 +153,5 @@ export class ProfilePage extends Block<IProfilePageProps, Ref> {
     `;
   }
 }
+
+export default connect(({ user }) => ({ user }))(ProfilePage);

@@ -14,3 +14,5 @@ export { Chat } from './chat';
 export { MessagesList } from './messages-list';
 export { MessageDate } from './message-date';
 export { Message } from './message-item';
+export { Dialog } from './dialog';
+export { default as DialogCreateChat } from './dialog-create-chat';

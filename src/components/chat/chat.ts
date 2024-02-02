@@ -1,11 +1,9 @@
 import Block from '../../utils/Block.ts';
-import { IMessagesItemProps } from '../messages-list/messages-list.ts';
 import * as validators from '../../utils/validators.ts';
 import { Avatar } from '../avatar';
 import { InputField } from '../input-field';
 
 interface IChatProps {
-  messagesData: IMessagesItemProps[];
   validate: {
     message: (value: string) => string | boolean;
   };
@@ -52,13 +50,13 @@ export class Chat extends Block<IChatProps, Ref> {
         </div>
         <div class="chat__footer">
           {{{Button type="add"}}}
-          {{{InputField 
-            id="message" 
-            name="message" 
-            type="text" 
-            mode="message" 
-            ref="message" 
-            validate=validate.message 
+          {{{InputField
+            id="message"
+            name="message"
+            type="text"
+            mode="message"
+            ref="message"
+            validate=validate.message
             placeholder="Сообщение"
           }}}
           {{{Button type="arrow-right" onClick=onSend}}}

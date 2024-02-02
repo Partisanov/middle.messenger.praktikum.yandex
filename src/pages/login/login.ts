@@ -1,11 +1,13 @@
 import Block from '../../utils/Block.ts';
-import { navigate } from '../../utils/navigate.ts';
 import * as validators from '../../utils/validators.ts';
-import { InputField } from '../../components';
+import { ErrorLine, InputField } from '../../components';
+import router from '../../Router/Router.ts';
+import { signin } from '../../services/auth.ts';
 
 type Ref = {
   login: InputField;
   password: InputField;
+  error: ErrorLine;
 };
 
 interface ILoginPageProps {
@@ -15,11 +17,16 @@ interface ILoginPageProps {
   };
   onLogin: (event: KeyboardEvent | MouseEvent) => void;
   onRegistration: (event: KeyboardEvent | MouseEvent) => void;
+  events?: {};
+  error: string | null;
 }
 
 export class LoginPage extends Block<ILoginPageProps, Ref> {
+  static componentName = 'LoginPage';
+
   constructor() {
     super({
+      error: null,
       validate: {
         login: validators.login,
         password: validators.password,
@@ -33,15 +40,14 @@ export class LoginPage extends Block<ILoginPageProps, Ref> {
           return;
         }
 
-        console.log({
+        signin({
           login,
           password,
-        });
-        navigate('messenger');
+        }).catch((error) => this.refs.error.setProps({ error }));
       },
       onRegistration: (event: Event) => {
         event.preventDefault();
-        navigate('registration');
+        router.go('/sign-up');
       },
     });
   }
@@ -51,28 +57,30 @@ export class LoginPage extends Block<ILoginPageProps, Ref> {
             <div class="container">
                 {{#> Form type="auth"}}
                   {{{ Title text="Вход"}}}
-                  {{{ InputField 
-                    label="Логин" 
-                    id="login" 
-                    name="login" 
-                    type="text" 
-                    mode="float" 
-                    ref="login" 
-                    validate=validate.login 
+                  {{{ InputField
+                    label="Логин"
+                    id="login"
+                    name="login"
+                    type="text"
+                    mode="float"
+                    ref="login"
+                    validate=validate.login
                   }}}
-                  {{{ InputField 
-                    label="Пароль" 
-                    id="password" 
-                    name="password" 
-                    type="password" 
-                    mode="float" 
-                    ref="password" 
+                  {{{ InputField
+                    label="Пароль"
+                    id="password"
+                    name="password"
+                    type="password"
+                    mode="float"
+                    ref="password"
                     validate=validate.password
                   }}}
+                  <div style="position: relative">{{{ ErrorLine error=error ref="error"}}}</div>
                   <div style="margin-top: auto">
                     {{{ Button label="Авторизоваться" type="primary" page="messenger" onClick=onLogin }}}
                     {{{ Button label="Нет аккаунта?" type="link" page="registration" onClick=onRegistration }}}
                   </div>
+
                 {{/Form}}
             </div>
         `;

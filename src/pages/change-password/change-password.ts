@@ -1,7 +1,7 @@
 import Block from '../../utils/Block.ts';
 import { InputField } from '../../components';
 import * as validators from '../../utils/validators.ts';
-import { navigate } from '../../utils/navigate.ts';
+import router from '../../Router/Router.ts';
 
 interface IChangePasswordPageProps {
   img?: string;
@@ -45,7 +45,7 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
           oldPassword,
           newPassword,
         });
-        navigate('profile');
+        router.go('/settings');
       },
       img:
         'https://aabookshop.net/wp-content/plugins/wp-e-commerce/wpsc-components/' +

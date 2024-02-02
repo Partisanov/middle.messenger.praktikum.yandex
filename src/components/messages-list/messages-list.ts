@@ -24,7 +24,7 @@ export class MessagesList extends Block<IMessagesListProps> {
           {{{MessageDate  date=this.date}}}
           <ul class="messages__list">
             {{#each messages}}
-              {{{Message 
+              {{{Message
                 userId=this.userId
                 message=this.message
               }}}

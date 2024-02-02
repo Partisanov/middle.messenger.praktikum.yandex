@@ -1,5 +1,5 @@
 import Block from '../../utils/Block.ts';
-import { navigate } from '../../utils/navigate.ts';
+import router from '../../Router/Router.ts';
 
 export interface IErrorProps {
   errorNumber: string;
@@ -13,7 +13,7 @@ export class Error extends Block<IErrorProps> {
       ...props,
       onBack: (event) => {
         event.preventDefault();
-        navigate('messenger');
+        router.go('/messenger');
       },
     });
   }
