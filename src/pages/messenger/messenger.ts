@@ -127,7 +127,7 @@ export class MessengerPage extends Block<IMessengerPageProps, Refs> {
         const token = await getToken(chatId);
         await this.socket.connect({ userId: userId, chatId: chatId, token: token });
       },
-      sendMessage: (message: string) => {
+      sendMessage: async (message: string) => {
         if (this.socket) {
           this.socket.sendMessage(message);
         }

@@ -1,4 +1,4 @@
-import { Route } from './Route.ts';
+import { Route, routerOptions } from './Route.ts';
 import Block from '../utils/Block.ts';
 
 class Router {
@@ -21,8 +21,8 @@ class Router {
     return Router.__instance;
   }
 
-  use(pathname: string, block: typeof Block): Router {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+  use(pathname: string, block: typeof Block, routerOptions?: routerOptions): Router {
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery }, routerOptions);
     this.routes.push(route);
     return this;
   }
@@ -52,10 +52,22 @@ class Router {
     return this.routes.find((route) => route.match(pathname));
   }
 
+  registerAuthorizationChecker(handler: () => boolean) {
+    this.isAuthorized = handler;
+    return this;
+  }
+
+  private isAuthorized: () => boolean = () => false;
+
   private _onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
     if (!route) {
       this.go('/pageNotFound');
+      return;
+    }
+
+    if (route.isPrivate && !this?.isAuthorized()) {
+      this.go('/sign-in');
       return;
     }
 

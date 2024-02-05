@@ -1,5 +1,9 @@
 import Block, { RefType } from '../utils/Block.ts';
 
+export type routerOptions = {
+  isPrivate?: boolean;
+};
+
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs;
 }
@@ -21,16 +25,18 @@ export function render<P extends object, R extends RefType>(query: string, block
 }
 
 export class Route {
+  public isPrivate: boolean;
   private _pathname: string;
   private readonly _blockClass: BlockConstructable<object, RefType>;
   private _block: Block<object, RefType> | null;
   private _props: any;
 
-  constructor(pathname: string, view: typeof Block, props: object) {
+  constructor(pathname: string, view: typeof Block, props: object, options?: routerOptions) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
     this._props = props;
+    this.isPrivate = options?.isPrivate ?? false;
   }
 
   navigate(pathname: string) {
