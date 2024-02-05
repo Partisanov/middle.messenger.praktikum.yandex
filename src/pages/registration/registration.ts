@@ -148,7 +148,7 @@ export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
                     ref="password2"
                     validate=validate.password
                   }}}
-                  <div style="position: relative">{{{ ErrorLine error=error ref="error"}}}</div>
+                  {{{ ErrorLine error=error ref="error"  type="dialog" }}}
                   <div style="margin-top: 47px">
                     {{{ Button label="Зарегистрироваться" type="primary" page="list" onClick=onRegistration }}}
                     {{{ Button label="Войти" type="link" page="login" onClick=onLogin }}}

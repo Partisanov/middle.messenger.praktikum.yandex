@@ -1,1 +1,3 @@
-export { ChangePasswordPage } from './change-password.ts';
+import ChangePasswordPage from './change-password.ts';
+
+export default ChangePasswordPage;

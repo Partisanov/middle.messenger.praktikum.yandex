@@ -14,7 +14,7 @@ export function render<P extends object, R extends RefType>(query: string, block
   if (root === null) {
     throw new Error(`по селектору ${query} root не найден`);
   }
-
+  root.innerHTML = '';
   root.append(block.getContent()!);
 
   return root;
@@ -51,12 +51,7 @@ export class Route {
   }
 
   render() {
-    if (!this._block) {
-      this._block = new this._blockClass({});
-      render(this._props.rootQuery, this._block);
-      return;
-    }
-
-    this._block.show();
+    this._block = new this._blockClass({});
+    render(this._props.rootQuery, this._block);
   }
 }

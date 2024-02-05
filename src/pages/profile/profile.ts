@@ -5,19 +5,14 @@ import { connect } from '../../utils/connect.ts';
 import { logout } from '../../services/auth.ts';
 import { TUser } from '../../type.ts';
 import { initProfilePage } from '../../services/initApp.ts';
+import constants from '../../constants.ts';
 
 export interface IProfilePageProps {
-  img?: string;
-  display_name: string;
-  email: string;
-  login: string;
-  first_name: string;
-  second_name: string;
-  phone: string;
   user: TUser;
   onEditProfile?: (event: KeyboardEvent | MouseEvent) => void;
   onChangePassword?: (event: KeyboardEvent | MouseEvent) => void;
   onLogOut?: (event: KeyboardEvent | MouseEvent) => void;
+  onBack: () => void;
 }
 
 type Ref = {
@@ -47,23 +42,32 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
         logout();
         router.go('/sign-in');
       },
+      onBack: () => {
+        router.go('/messenger');
+      },
     });
     initProfilePage();
   }
 
   protected render(): string {
-    const user = this.props.user;
-    console.log(this.props.user);
-
+    const { avatar, display_name, email, login, first_name, second_name, phone } = this.props.user || {};
     return `
-      <div class="container">
-        {{#> ProfileLayout}}
+      <section class="profile">
+      <div class="profile__btn-back">
+        {{{Button type="arrow-left" onClick=onBack }}}
+    </div>
+    <div class="profile__content">
+      <form class="profile__form">
           <div class="profile__avatar-wrap">
-            <button class="profile__change-avatar-btn">Поменять аватар</button>
-            {{{Avatar img="${user.avatar ? user.avatar : ''}" size=130 }}}
+            {{{Avatar img="${
+              avatar
+                ? `
+${constants.RESOURCE}${avatar}`
+                : ''
+            }" size=130 }}}
           </div>
             <div class="profile__title-wrap">
-              <h3 class="profile__title">${user.display_name ? user.display_name : ''}</h3>
+              <h3 class="profile__title">${display_name ? display_name : ''}</h3>
             </div>
             <ul class="profile__list">
               <li class="profile__item">
@@ -73,7 +77,7 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
                   name="email"
                   type="text"
                   mode="fix"
-                  value='${user.email}'
+                  value='${email}'
                   disabled="true"
                   ref="email"
                 }}}
@@ -85,7 +89,7 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
                   name="login"
                   type="text"
                   mode="fix"
-                  value='${user.login}'
+                  value='${login}'
                   disabled="true"
                   ref="login"
                 }}}
@@ -97,7 +101,7 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
                   name="first_name"
                   type="text"
                   mode="fix"
-                  value='${user.first_name}'
+                  value='${first_name}'
                   disabled="true"
                   ref="first_name"
                 }}}
@@ -109,7 +113,7 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
                   name="second_name"
                   type="text"
                   mode="fix"
-                  value='${user.second_name}'
+                  value='${second_name}'
                   disabled="true"
                   ref="second_name"
                 }}}
@@ -121,7 +125,7 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
                   name="display_name"
                   type="text"
                   mode="fix"
-                  value='${user.display_name}'
+                  value='${display_name ? display_name : ''}'
                   disabled="true"
                   ref="display_name"
                 }}}
@@ -133,7 +137,7 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
                   name="phone"
                   type="text"
                   mode="fix"
-                  value='${user.phone}'
+                  value='${phone}'
                   disabled="true"
                   ref="phone"
                 }}}
@@ -148,8 +152,9 @@ class ProfilePage extends Block<IProfilePageProps, Ref> {
       </li>
       <li class="profile__item_btn">{{{Button type="link-danger" label="Выйти" page="login" onClick=onLogOut }}}</li>
     </ul>
-        {{/ProfileLayout}}
-      </div>
+        </form>
+    </div>
+</section>
     `;
   }
 }

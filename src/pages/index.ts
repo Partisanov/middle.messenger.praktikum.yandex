@@ -5,5 +5,5 @@ export { NotFoundPage } from './404';
 export { InternalErrorPage } from './500';
 export { default as MessengerPage } from './messenger';
 export { default as ProfilePage } from './profile';
-export { EditProfilePage } from './edit-profile';
-export { ChangePasswordPage } from './change-password';
+export { default as EditProfilePage } from './edit-profile';
+export { default as ChangePasswordPage } from './change-password';

@@ -1,5 +1,5 @@
 import { getUser } from './auth';
-import { getChats } from './messenger';
+import { getChats } from './chats.ts';
 import router from '../Router/Router.ts';
 import {
   ChangePasswordPage,
@@ -22,7 +22,7 @@ const initApp = async () => {
     .use('/messenger', MessengerPage as unknown as typeof Block)
     .use('/pageNotFound', NotFoundPage as unknown as typeof Block)
     .use('/internalError', InternalErrorPage as unknown as typeof Block)
-    .use('/profile', ProfilePage as unknown as typeof Block)
+    .use('/settings', ProfilePage as unknown as typeof Block)
     .use('/changePassword', ChangePasswordPage as unknown as typeof Block)
     .use('/editProfile', EditProfilePage as unknown as typeof Block)
     .start();
@@ -37,7 +37,6 @@ const initApp = async () => {
 
   const chats: TChat[] = await getChats();
   window.store.set({ user: me, chats });
-  router.go('/messenger');
 };
 
 const initChatPage = async () => {

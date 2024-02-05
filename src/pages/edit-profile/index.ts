@@ -1,1 +1,3 @@
-export { EditProfilePage } from './edit-profile.ts';
+import EditProfilePage from './edit-profile.ts';
+
+export default EditProfilePage;

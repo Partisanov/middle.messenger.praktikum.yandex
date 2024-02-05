@@ -4,7 +4,7 @@ interface IDialogProps {
   open: boolean;
 }
 
-type Refs = {};
+type Refs = Record<string, never>;
 
 export class Dialog extends Block<IDialogProps, Refs> {
   constructor(props: IDialogProps) {

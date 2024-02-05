@@ -32,17 +32,17 @@ export class DialogCreateChat extends Block<Props, Ref> {
     return `
       {{#Dialog open=isOpenDialogCreateChat}}
         <form method="dialog" class="form-dialog">
-          {{{ Title text="Добавить пользователя"}}}
+          {{{ Title text="Добавить чат"}}}
           {{{ InputField
-            label="Логин"
-            id="login"
+            label="Имя чата"
+            id="chatName"
             name="chatName"
             type="text"
             mode="float"
             ref="chatName"
             validate=validate.login
           }}}
-          <div style="position: relative">{{{ ErrorLine error=error ref="error"}}}</div>
+          {{{ ErrorLine error=error ref="error" type="dialog" }}}
           <div style="margin-top: auto">
             {{{ Button label="Создать" type="primary" onClick=onSave }}}
             {{{ Button label="Отменить" type="link"  onClick=onClose }}}

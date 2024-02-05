@@ -17,7 +17,7 @@ interface ILoginPageProps {
   };
   onLogin: (event: KeyboardEvent | MouseEvent) => void;
   onRegistration: (event: KeyboardEvent | MouseEvent) => void;
-  events?: {};
+  events?: Record<string, never>;
   error: string | null;
 }
 
@@ -75,7 +75,7 @@ export class LoginPage extends Block<ILoginPageProps, Ref> {
                     ref="password"
                     validate=validate.password
                   }}}
-                  <div style="position: relative">{{{ ErrorLine error=error ref="error"}}}</div>
+                  {{{ ErrorLine error=error ref="error" type="dialog" }}}
                   <div style="margin-top: auto">
                     {{{ Button label="Авторизоваться" type="primary" page="messenger" onClick=onLogin }}}
                     {{{ Button label="Нет аккаунта?" type="link" page="registration" onClick=onRegistration }}}

@@ -41,12 +41,27 @@ export class HTTPTransport {
   async request<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
     const { method, data } = options;
 
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    let requestBody;
+
+    if (data instanceof FormData) {
+      // If data is FormData, update headers and set requestBody directly
+      delete headers['Content-Type'];
+      requestBody = data;
+    } else if (data) {
+      // If data is provided, stringify it for JSON
+      requestBody = JSON.stringify(data);
+    }
+
     const response = await fetch(url, {
       method,
       credentials: 'include',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: data ? JSON.stringify(data) : null,
+      headers,
+      body: requestBody,
     });
 
     const isJson = response.headers.get('content-type')?.includes('application/json');

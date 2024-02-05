@@ -18,6 +18,9 @@ const getUser = async (): Promise<TUser> => {
 const signin = async (data: TLoginRequestData) => {
   const response = await authApi.login(data);
   if (apiHasError(response)) {
+    if (response.reason === 'User already in system') {
+      router.go('/messenger');
+    }
     throw Error(response.reason);
   }
 
@@ -41,7 +44,8 @@ const signup = async (data: TCreateUser) => {
 const logout = async () => {
   await authApi.logout();
   window.store.set({ user: null, chats: [] });
-  router.go('/login');
+  window.location.reload();
+  router.go('/');
 };
 
 export { signin, signup, logout, getUser };
