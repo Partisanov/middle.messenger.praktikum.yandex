@@ -37,11 +37,11 @@ Stylelint, Eslint, Prettier
 
 страницы:
 
-- [Вход](https://super-kulfi-023af6.netlify.app/?page=login)
-- [Регистрация](https://super-kulfi-023af6.netlify.app/?page=registration)
-- [Чат](https://super-kulfi-023af6.netlify.app/?page=messenger)
-- [Профиль](https://super-kulfi-023af6.netlify.app/?page=profile)
-- [Редактировать профиль](https://super-kulfi-023af6.netlify.app/?page=editProfile)
-- [Изменить пароль](https://super-kulfi-023af6.netlify.app/?page=changePassword)
-- [Ошибка 404](https://super-kulfi-023af6.netlify.app/?page=notFound)
-- [Ошибка 500](https://super-kulfi-023af6.netlify.app/?page=internalError)
+- [Вход](https://super-kulfi-023af6.netlify.app/sign-in)
+- [Регистрация](https://super-kulfi-023af6.netlify.app/sign-up)
+- [Чат](https://super-kulfi-023af6.netlify.app/messenger)
+- [Профиль](https://super-kulfi-023af6.netlify.app/settings)
+- [Редактировать профиль](https://super-kulfi-023af6.netlify.app/editProfile)
+- [Изменить пароль](https://super-kulfi-023af6.netlify.app/changePassword)
+- [Ошибка 404](https://super-kulfi-023af6.netlify.app/pageNotFound)
+- [Ошибка 500](https://super-kulfi-023af6.netlify.app/internalError)
