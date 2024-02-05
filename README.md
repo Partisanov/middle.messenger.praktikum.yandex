@@ -9,6 +9,8 @@ HTML5, CSS, SCSS,
 Шаблонизатор Handlebars,
 Stylelint, Eslint, Prettier
 Сборщик Vite
+WebSocket
+Routing
 
 ## Установка
 
