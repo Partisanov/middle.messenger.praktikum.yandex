@@ -1,6 +1,6 @@
-import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import EventBus from './EventBus.ts';
 
 export type RefType = {
   [key: string]: Element | Block<object>;
@@ -12,7 +12,9 @@ export interface BlockClass<P extends object, R extends RefType> {
   new (props: P): Block<P, R>;
 }
 
-interface BlockConstructable<Props extends object, R extends RefType> {
+export interface BlockConstructable<Props extends object, R extends RefType> {
+  EVENTS: typeof Block.EVENTS;
+
   new (props: Props): Block<Props, R>;
 }
 
@@ -170,7 +172,7 @@ class Block<Props extends object, Refs extends RefType = RefType> {
   }
 
   show() {
-    this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'flex';
   }
 
   hide() {

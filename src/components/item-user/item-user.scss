@@ -13,7 +13,7 @@
     }
   }
 
-  &.active {
+  &.active, &:hover {
     background-color: #e4edfd;
   }
 

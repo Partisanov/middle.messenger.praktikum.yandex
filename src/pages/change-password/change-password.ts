@@ -1,25 +1,34 @@
 import Block from '../../utils/Block.ts';
-import { InputField } from '../../components';
+import { ErrorLine, InputField } from '../../components';
 import * as validators from '../../utils/validators.ts';
-import { navigate } from '../../utils/navigate.ts';
+import { TUser } from '../../type.ts';
+import { initProfilePage } from '../../services/initApp.ts';
+import { connect } from '../../utils/connect.ts';
+import { TChangePasswordRequestData } from '../../api/type.ts';
+import { changeUserPassword } from '../../services/user.ts';
+import router from '../../Router/Router.ts';
+import constants from '../../constants.ts';
 
 interface IChangePasswordPageProps {
-  img?: string;
+  user: TUser;
   validate: {
     password: (value: string) => string | boolean;
   };
   onSubmit: (event: KeyboardEvent | MouseEvent) => void;
+  onBack: () => void;
 }
 
 type Ref = {
   oldPassword: InputField;
   newPassword: InputField;
   newPassword2: InputField;
+  errorLine: ErrorLine;
 };
 
-export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
-  constructor() {
+class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
+  constructor(props: IChangePasswordPageProps) {
     super({
+      ...props,
       validate: {
         password: validators.password,
       },
@@ -41,28 +50,37 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
         if (!oldPassword) {
           return;
         }
-        console.log({
-          oldPassword,
-          newPassword,
-        });
-        navigate('profile');
+        const newPasswordData: TChangePasswordRequestData = {
+          oldPassword: this.refs.oldPassword.value()!,
+          newPassword: this.refs.newPassword.value()!,
+        };
+        changeUserPassword(newPasswordData).catch((error) => this.refs.errorLine.setProps({ error }));
       },
-      img:
-        'https://aabookshop.net/wp-content/plugins/wp-e-commerce/wpsc-components/' +
-        'theme-engine-v1/templates/wpsc-images/noimage.png',
+      onBack: () => {
+        router.go('/settings');
+      },
     });
+    initProfilePage();
   }
 
   protected render(): string {
-    const { img } = this.props;
+    const { avatar } = this.props.user || {};
     return `
-      <div class="container">
-        {{#>ProfileLayout}}
-          <div class="profile__avatar-wrap" style="margin-bottom: 97px">
-            <button class="profile__change-avatar-btn">Поменять аватар</button>
-            {{{ Avatar img="${img}" size=130 }}}
-          </div>
-          <ul class="profile__list">
+      <section class="profile">
+        <div class="profile__btn-back">
+          {{{Button type="arrow-left" onClick=onBack }}}
+        </div>
+        <div class="profile__content">
+          <form class="profile__form" id="password-form">
+            <div class="profile__avatar-wrap" style="margin-bottom: 97px">
+              {{{Avatar img="${
+                avatar
+                  ? `
+${constants.RESOURCE}${avatar}`
+                  : ''
+              }" size=130 }}}
+            </div>
+              <ul class="profile__list">
             <li class="profile__item">
               {{{InputField
                 label="Старый пароль"
@@ -97,13 +115,17 @@ export class ChangePasswordPage extends Block<IChangePasswordPageProps, Ref> {
               }}}
             </li>
           </ul>
-          <ul class="profile__list">
-            <li class="profile__item_btn" style="display: flex; justify-content: center">
-              {{{Button type="primary" label="Сохранить" onClick=onSubmit}}}
-            </li>
-          </ul>
-        {{/ProfileLayout}}
-      </div>
+              {{{ ErrorLine error=error ref="errorLine"  type="dialog" }}}
+              <ul class="profile__list">
+              <li class="profile__item_btn" style="display: flex; justify-content: center">
+                {{{Button type="primary" label="Сохранить" onClick=onSubmit}}}
+              </li>
+            </ul>
+          </form>
+        </div>
+</section>
     `;
   }
 }
+
+export default connect(({ user }) => ({ user }))(ChangePasswordPage);

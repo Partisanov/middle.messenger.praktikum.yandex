@@ -1,36 +1,30 @@
 import Block from '../../utils/Block.ts';
-import { IMessageProps } from '../message-item/message-item.ts';
+import { TMessage } from '../../type.ts';
 
 interface IMessagesListProps {
-  messagesData: IMessagesItemProps[];
-}
-
-export interface IMessagesItemProps {
-  date: string;
-  messages: IMessageProps[];
+  messagesData: TMessage[];
 }
 
 export class MessagesList extends Block<IMessagesListProps> {
   static name = 'MessagesList';
 
   constructor(props: IMessagesListProps) {
-    super(props);
+    super({ ...props });
   }
 
   protected render(): string {
     return `
       <div class="messages">
+      <ul class="messages__list">
         {{#each messagesData}}
-          {{{MessageDate  date=this.date}}}
-          <ul class="messages__list">
-            {{#each messages}}
-              {{{Message 
-                userId=this.userId
-                message=this.message
-              }}}
-            {{/each}}
-          </ul>
+             {{{Message
+                user_id=this.user_id
+                content=this.content
+                type=this.type
+                time=this.time
+             }}}
         {{/each}}
+        </ul>
       </div>
     `;
   }

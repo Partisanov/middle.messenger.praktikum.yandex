@@ -1,7 +1,10 @@
 import Block from '../../utils/Block.ts';
-import { navigate } from '../../utils/navigate.ts';
 import * as validators from '../../utils/validators.ts';
-import { InputField } from '../../components';
+import { ErrorLine, InputField } from '../../components';
+import { signup } from '../../services/auth.ts';
+
+import router from '../../Router/Router.ts';
+import { TCreateUser } from '../../api/type.ts';
 
 type Ref = {
   email: InputField;
@@ -11,6 +14,7 @@ type Ref = {
   phone: InputField;
   password: InputField;
   password2: InputField;
+  error: ErrorLine;
 };
 
 interface IRegistrationPageProps {
@@ -23,11 +27,13 @@ interface IRegistrationPageProps {
   };
   onLogin: (event: KeyboardEvent | MouseEvent) => void;
   onRegistration: (event: KeyboardEvent | MouseEvent) => void;
+  error: string | null;
 }
 
 export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
   constructor() {
     super({
+      error: null,
       validate: {
         login: validators.login,
         password: validators.password,
@@ -37,7 +43,7 @@ export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
       },
       onLogin: (event) => {
         event.preventDefault();
-        navigate('login');
+        router.go('/sign-in');
       },
       onRegistration: (event) => {
         event.preventDefault();
@@ -61,15 +67,15 @@ export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
         if (!email || !login || !first_name || !second_name || !phone) {
           return;
         }
-        console.log({
-          email,
-          login,
-          first_name,
-          second_name,
-          phone,
-          password,
-        });
-        navigate('messenger');
+        const newUser: TCreateUser = {
+          login: this.refs.login.value()!,
+          first_name: this.refs.first_name.value()!,
+          second_name: this.refs.second_name.value()!,
+          email: this.refs.email.value()!,
+          phone: this.refs.phone.value()!,
+          password: this.refs.password.value()!,
+        };
+        signup(newUser).catch((error) => this.refs.error.setProps({ error }));
       },
     });
   }
@@ -142,7 +148,7 @@ export class RegistrationPage extends Block<IRegistrationPageProps, Ref> {
                     ref="password2"
                     validate=validate.password
                   }}}
-
+                  {{{ ErrorLine error=error ref="error"  type="dialog" }}}
                   <div style="margin-top: 47px">
                     {{{ Button label="Зарегистрироваться" type="primary" page="list" onClick=onRegistration }}}
                     {{{ Button label="Войти" type="link" page="login" onClick=onLogin }}}

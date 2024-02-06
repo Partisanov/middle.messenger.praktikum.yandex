@@ -26,12 +26,12 @@ export class Input extends Block<IInputProps> {
   protected render(): string {
     const { type, name, id, disabled, value, placeholder } = this.props;
     return `
-      <input 
-        class="input__field" 
-        type="${type}" 
-        name="${name}" 
-        id="${id}" 
-        placeholder="${placeholder ? placeholder : ''}" 
+      <input
+        class="input__field"
+        type="${type}"
+        name="${name}"
+        id="${id}"
+        placeholder="${placeholder ? placeholder : ''}"
         autocomplete="false"
         ${disabled ? 'disabled' : ''}
         value="${value ? value : ''}"

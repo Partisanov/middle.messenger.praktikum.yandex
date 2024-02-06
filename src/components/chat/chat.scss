@@ -5,6 +5,11 @@
   width: 100%;
   padding: 0 20px;
 
+  &-empty {
+    align-items: center;
+    justify-content: center;
+  }
+
   &__header,
   &__footer {
     padding: 10px 0;
@@ -22,6 +27,13 @@
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
+  }
+
+  &__empty {
+    align-self: center;
+    font-size: 12px;
+    text-align: center;
+    color: #999;
   }
 
   &__content {

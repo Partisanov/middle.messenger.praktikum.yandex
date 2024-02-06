@@ -1,10 +1,14 @@
 import Block from '../../utils/Block.ts';
-import { IItemUserProps } from '../item-user/item-user.ts';
-import { navigate } from '../../utils/navigate.ts';
+import router from '../../Router/Router.ts';
+import { TChat, TMessage } from '../../type.ts';
+import { connect } from './../../utils/connect.ts';
 
 export interface IMenuProps {
-  users: IItemUserProps[];
+  chats: TChat[];
+  messages: TMessage[];
   onProfile: (event: KeyboardEvent | MouseEvent) => void;
+  openCreateChatDialog: () => void;
+  onSelectChat: (id: number) => void;
 }
 
 export class Menu extends Block<IMenuProps> {
@@ -15,7 +19,7 @@ export class Menu extends Block<IMenuProps> {
       ...props,
       onProfile: (event) => {
         event.preventDefault();
-        navigate('profile');
+        router.go('/settings');
       },
     });
   }
@@ -23,10 +27,15 @@ export class Menu extends Block<IMenuProps> {
   protected render(): string {
     return `
       <div class="menu">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 10px 0 20px">
+        {{{Button type="add-chat" onClick=openCreateChatDialog}}}
         {{{Button label="Профиль" type="link-menu" page="profile" onClick=onProfile}}}
+      </div>
         {{{SearchField label="Поиск"}}}
-        {{{ListUsers users=users}}}
+        {{{ListUsers chats=chats onSelectChat=onSelectChat}}}
       </div>
     `;
   }
 }
+
+export const withStoreMenu = connect((state) => ({ chats: state.chats, messages: state.messages }))(Menu);
