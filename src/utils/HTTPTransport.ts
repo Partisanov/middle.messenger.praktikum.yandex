@@ -1,6 +1,6 @@
 import constants from '../constants';
 
-enum METHOD {
+export enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -9,11 +9,12 @@ enum METHOD {
 }
 
 type Options = {
-  method: METHOD;
+  method: METHODS;
   data?: any;
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
+type HTTPMethod = <R = unknown>(url: string, options?: OptionsWithoutMethod) => Promise<R>;
 
 export class HTTPTransport {
   private readonly apiUrl: string = '';
@@ -22,23 +23,23 @@ export class HTTPTransport {
     this.apiUrl = `${constants.HOST}${apiPath}`;
   }
 
-  get<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.GET });
-  }
+  get: HTTPMethod = (url, options = {}) => {
+    return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.GET });
+  };
 
-  post<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.POST });
-  }
+  post: HTTPMethod = (url, options = {}) => {
+    return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.POST });
+  };
 
-  put<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.PUT });
-  }
+  put: HTTPMethod = (url, options = {}) => {
+    return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.PUT });
+  };
 
-  delete<TResponse>(url: string, options: OptionsWithoutMethod = {}): Promise<TResponse> {
-    return this.request<TResponse>(`${this.apiUrl}${url}`, { ...options, method: METHOD.DELETE });
-  }
+  delete: HTTPMethod = (url, options = {}) => {
+    return this.request(`${this.apiUrl}${url}`, { ...options, method: METHODS.DELETE });
+  };
 
-  async request<TResponse>(url: string, options: Options = { method: METHOD.GET }): Promise<TResponse> {
+  async request<TResponse>(url: string, options: Options = { method: METHODS.GET }): Promise<TResponse> {
     const { method, data } = options;
 
     const headers: Record<string, string> = {

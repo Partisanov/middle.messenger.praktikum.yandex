@@ -9,6 +9,8 @@ HTML5, CSS, SCSS,
 Шаблонизатор Handlebars,
 Stylelint, Eslint, Prettier
 Сборщик Vite
+Инструменты тестирования Mocha и Chai
+vite-plugin-checker - проверяет код (TypeScript, ESlint, Stylelint) прямо во время сборки
 
 ## Установка
 
@@ -24,8 +26,9 @@ Stylelint, Eslint, Prettier
   ESLint.
 - `npm run stylelint` — запустить поиск и анализ проблем в файлах стилей (CSS, SCSS) с использованием Stylelint.
 - `npm run lint` — запустить общую проверка кода, включая ESLint, Stylelint и TypeScript.
-
-Для сборки production:
+- `npm run test` — запустить тесты с использованием Mocha с регистрацией jsdom-global.
+- `npm run prepare` — установить Husky, менеджер хуков Git.
+  Для сборки production:
 
 - `npm run build`
 
