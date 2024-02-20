@@ -7,13 +7,11 @@ interface Props {
   events?: Record<string, () => void>;
 }
 
-type Refs = {};
-
 describe('Block', () => {
-  let PageClass: typeof Block<Props, Refs>;
+  let PageClass: typeof Block<Props>;
 
   before(() => {
-    class Page extends Block<Props, Refs> {
+    class Page extends Block<Props> {
       constructor(props: Props) {
         super({
           ...props,

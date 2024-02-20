@@ -41,7 +41,8 @@
     "stylelint-scss": "^6.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-checker": "^0.6.4"
   },
   "dependencies": {
     "express": "^4.18.2",

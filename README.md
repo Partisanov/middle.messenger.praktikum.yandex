@@ -10,6 +10,7 @@ HTML5, CSS, SCSS,
 Stylelint, Eslint, Prettier
 Сборщик Vite
 Инструменты тестирования Mocha и Chai
+vite-plugin-checker - проверяет код (TypeScript, ESlint, Stylelint) прямо во время сборки
 
 ## Установка
 
